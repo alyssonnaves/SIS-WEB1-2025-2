@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.db.deps import get_db
 ## contrato da API - schemas
-from app.schemas.produto import CategoriaCreate, CategoriaOut
+from app.schemas.categoria import CategoriaCreate, CategoriaOut
 from app.repositories import categoria as repo
 
 rotas = APIRouter(prefix="/v1/categoria", tags=["categoria"])

@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 # Tabela Categoria
 from app.models.categoria import Categoria
 # Contrato da API
-from app.schemas.produto import CategoriaCreate
+from app.schemas.categoria import CategoriaCreate
 
 def create(db:Session, payload: CategoriaCreate) -> Categoria:
     objeto = Categoria(**payload.model_dump())
