@@ -4,11 +4,16 @@ from app.db.deps import get_db
 ## contrato da API - schemas
 from app.schemas.produto import ProdutoCreate, ProdutoOut
 from app.repositories import produto as repo
+from app.services.produto import criar_produto
 
 rotas = APIRouter(prefix="/v1/produto", tags=["produto"])
 
 @rotas.post("/", response_model=ProdutoOut, status_code=status.HTTP_201_CREATED)
 def create(payload: ProdutoCreate, db: Session = Depends(get_db)):
+    #preco = payload.preco
+    #if preco <= 0:
+    #    raise HTTPException(status.HTTP_400_BAD_REQUEST, "Preco deve ser maior que zero")
+    criar_produto(payload)
     return repo.create(db, payload)
 
 @rotas.get("/", response_model=list[ProdutoOut])
