@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Catálogo — Categorias & Produtos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="./styles.css" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1>Catálogo (API + Frontend)</h1>
+    <p class="subtitle">Cadastro e listagem de Categorias e Produtos</p>
+  </header>
+
+  <main>
+    <!-- CATEGORIAS -->
+    <section class="card">
+      <h2>Categorias</h2>
+
+      <form id="form-categoria" class="form">
+        <div class="field">
+          <label for="cat-nome">Nome</label>
+          <input id="cat-nome" name="nome" type="text" placeholder="Ex.: Eletrônicos" required />
+        </div>
+        <button type="submit">Adicionar Categoria</button>
+      </form>
+
+      <div id="categorias-list" class="list"></div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="card">
+      <h2>Produtos</h2>
+
+      <form id="form-produto" class="form">
+        <div class="field">
+          <label for="prod-nome">Nome</label>
+          <input id="prod-nome" name="nome" type="text" placeholder="Ex.: Fone de ouvido" required />
+        </div>
+        <div class="field">
+          <label for="prod-preco">Preço</label>
+          <input id="prod-preco" name="preco" type="number" step="0.01" min="0.01" placeholder="Ex.: 199.90" required />
+        </div>
+        <div class="field">
+          <label for="prod-categoria">Categoria</label>
+          <select id="prod-categoria" name="categoria_id" required>
+            <option value="" disabled selected>Selecione...</option>
+          </select>
+        </div>
+        <button type="submit">Adicionar Produto</button>
+      </form>
+
+      <div id="produtos-list" class="list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Desenvolvimento de Sistemas Web I — Projeto de apoio</small>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
