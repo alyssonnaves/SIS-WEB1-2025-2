@@ -1,18 +1,32 @@
-# definir a conexao com o banco e a sessao (porta de entrada para executar consultas)
-from sqlalchemy import create_engine, event
-from sqlalchemy.orm import sessionmaker
+## conexao com postgresql
+
+from sqlalchemy import create_engine
 from app.core.config import settings
 
-engine = create_engine(
-    settings.DATABASE_URL,
-    # postgresql nao precisa desse argumento
-    connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {}
+DATABASE_URL = (
+    f"postgresql+psycopg2://{settings.PG_USER}:{settings.PG_PASSWORD}"
+    f"@{settings.PG_HOST}:{settings.PG_PORT}/{settings.PG_DB}"
 )
 
-@event.listens_for(engine, "connect")
-def set_sqlite_pragma(dbapi_connection, _):
-    cursor = dbapi_connection.cursor()
-    cursor.execute("PRAGMA foreign_keys=ON")   # postgresql nao precisa dessa linha
-    cursor.close()
+engine = create_engine(
+    DATABASE_URL,
+    pool_size = 10,   # maximo de conexoes
+    max_overflow = 0, # evita criar conexoes extras
+    pool_timeout= 5,  # tempo de retorno em segundos
+    pool_pre_ping= True # verifica se a conexao esta "viva"
+)
 
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+def get_connection():
+    with engine.connect() as conn:
+        yield conn  ## garante contexto com fechamento automatico
+
+
+if __name__ == "__main__":
+    from sqlalchemy import text
+    with engine.connect() as conn:
+
+        sql = "SELECT * FROM categorias"
+        result = conn.execute(text(sql))
+        rows = result.fetchall()
+        for row in rows:
+            print(f"id: {row.id} - nome: {row.nome}")
