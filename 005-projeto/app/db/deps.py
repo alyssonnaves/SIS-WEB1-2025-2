@@ -1,8 +1,10 @@
-from app.db.session import SessionLocal
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+from typing import Generator
+from sqlalchemy.engine import Connection
+from app.db.session import engine
+
+def get_connection() -> Generator[Connection, None, None]:
+    with engine.begin() as conn:
+        # abre conexao e inicia transacao
+        yield conn
+

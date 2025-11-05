@@ -14,3 +14,11 @@ CREATE TABLE produtos (
 -- índices
 CREATE INDEX idx_produtos_nome ON produtos (nome);
 CREATE INDEX idx_produtos_categoria_id ON produtos (categoria_id);
+
+
+bi
+
+
+INSERT INTO categorias (nome) VALUES ('Eletrônicos'), ('Papelaria');
+
+select * from categorias

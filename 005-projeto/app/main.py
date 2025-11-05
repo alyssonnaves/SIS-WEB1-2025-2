@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from app.core.config import settings
 from app.db.base import Base
 from app.db.session import engine
-from app.api.v1.rotas import api_rotas
+# from app.api.v1.rotas import api_rotas
+from app.api.v2.rotaspg import api_rotas
 from fastapi.middleware.cors import CORSMiddleware
 
 # criar as tabelas
